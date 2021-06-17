@@ -1,0 +1,30 @@
+name: MCWandsFramework
+version: 4.0.0
+main: com.hoshikurama.github.mcwandsframework.MCWandsFramework
+api-version: 1.16
+authors: [HoshiKurama]
+commands:
+  mcwands:
+    description: Base for all wand commands
+permissions:
+  mcwands.use:
+    description: Use wands
+    default: false
+  mcwands.tab-complete:
+    description: Tab-complete commands. Needed to know how to use commands
+    default: false
+  mcwands.create:
+    description: Ability to create wands using commands
+    default: false
+  mcwands.*:
+    description: Wilcard for all wand commands
+    default: op
+    children:
+      mcwands.use: true
+      mcwands.tab-complete: true
+      mcwands.create: true
+libraries:
+  - org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0
+  - com.github.shynixn.mccoroutine:mccoroutine-bukkit-api:1.5.0
+  - com.github.shynixn.mccoroutine:mccoroutine-bukkit-core:1.5.0
+  - org.jetbrains.kotlin:kotlin-stdlib:1.5.10

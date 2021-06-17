@@ -29,7 +29,7 @@ repositories {
 }
 
 dependencies {
-  implementation 'com.github.HoshiKurama:MCWandsFramework:4.0.0-R'
+  implementation 'com.github.HoshiKurama:MCWandsFramework:4.0.1'
 }
 ```
 Kotlin (build.gradle.kts)
@@ -39,7 +39,7 @@ repositories {
 }
 
 dependencies {
-  implementation("com.github.HoshiKurama:MCWandsFramework:4.0.0-R")
+  implementation("com.github.HoshiKurama:MCWandsFramework:4.0.1")
 }
 ```
 Maven (pom.xml)
@@ -53,7 +53,7 @@ Maven (pom.xml)
   <dependency>
     <groupId>com.github.HoshiKurama</groupId>
     <artifactId>MCWandsFramework</artifactId>
-    <version>4.0.0-R</version>
+    <version>4.0.1</version>
   </dependency>
 </dependencies>
 ```

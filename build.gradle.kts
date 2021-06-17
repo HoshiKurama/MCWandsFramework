@@ -23,5 +23,22 @@ dependencies {
 }
 
 tasks.withType<KotlinCompile>() {
-    kotlinOptions.jvmTarget = "16"
+    kotlinOptions.jvmTarget = "11"
+}
+
+val sourcesJar by tasks.creating(Jar::class) {
+    archiveClassifier.set("sources")
+    from(sourceSets.getByName("main").allSource)
+    from("LICENSE.md") {
+        into("META-INF")
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("MCWandsFramework") {
+            from(components["java"])
+            artifact(sourcesJar)
+        }
+    }
 }

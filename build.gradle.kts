@@ -26,6 +26,8 @@ tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "11"
 }
 
+
+// Publishing Instructions
 val sourcesJar by tasks.creating(Jar::class) {
     archiveClassifier.set("sources")
     from(sourceSets.getByName("main").allSource)

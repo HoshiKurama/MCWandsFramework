@@ -3,6 +3,5 @@
 build
 stuff.txt
 gradle.properties
-gradlew
 gradlew.bat
 API_KEYS.kt

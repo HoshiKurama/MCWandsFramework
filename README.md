@@ -153,3 +153,36 @@ Java users and Kotlin users alike have access to a wand parameter object when de
 SimpleScheduler is a light wrapper for the Bukkit Scheduler that abstracts away the main plugin from the end developer. This class does not contain any function for accepting a BukkitRunable object, so if this is something you need, you may retrieve the underlying plugin object from this object.
 # Kotlin
 MCWandsFramework was written entirely in Kotlin. Furthermore, Kotlin users have access to more parts of this framework than Java users, most namely coroutines. If you don't know what coroutines are, no worries! The coroutine part of this framework can be completely ignored! Just treat your code like any other code you would write! For those who do have experience with coroutines, all wand actions by default run on a coroutine in the main thread. When registering a wand with Kotlin, users have access to both the specialty parameters of the wand and the CoroutineScope object inside the registered function.
+
+In order to use the coroutines, Kotlin users must add these extra dependencies:
+
+Kotlin DSL (build.gradle.kts)
+```kotlin
+implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
+implementation("com.github.shynixn.mccoroutine:mccoroutine-bukkit-api:1.5.0")
+implementation("com.github.shynixn.mccoroutine:mccoroutine-bukkit-core:1.5.0")
+```
+Groovy (build.gradle)
+```groovy
+implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0'
+implementation 'com.github.shynixn.mccoroutine:mccoroutine-bukkit-api:1.5.0'
+implementation 'com.github.shynixn.mccoroutine:mccoroutine-bukkit-core:1.5.0'
+```
+Maven (pom.xml)
+```xml
+<dependency>
+    <groupId>org.jetbrains.kotlinx</groupId>
+    <artifactId>kotlinx-coroutines-core</artifactId>
+    <version>1.5.0</version>
+  </dependency>
+<dependency>
+    <groupId>com.github.shynixn.mccoroutine</groupId>
+    <artifactId>mccoroutine-bukkit-api</artifactId>
+    <version>1.5.0</version>
+  </dependency>
+<dependency>
+    <groupId>com.github.shynixn.mccoroutine</groupId>
+    <artifactId>mccoroutine-bukkit-core</artifactId>
+    <version>1.5.0</version>
+  </dependency>
+```

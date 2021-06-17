@@ -11,8 +11,8 @@ import java.util.concurrent.Future
  * Java users should NEVER use this
  **/
 class SimpleSchedulerKotlin(
-    private val plugin: Plugin,
-    private val scheduler: BukkitScheduler,
+    val plugin: Plugin,
+    val scheduler: BukkitScheduler,
 ) {
     @Suppress("unused")
     fun scheduleSyncDelayedTask(delay: Long, task: () -> Unit): Int =

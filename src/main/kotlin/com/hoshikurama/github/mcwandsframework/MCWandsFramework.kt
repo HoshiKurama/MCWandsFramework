@@ -34,6 +34,8 @@ class MCWandsFramework : SuspendingJavaPlugin() {
         getCommand("mcwands")?.setSuspendingExecutor(Commands())
 
         Bukkit.getServicesManager().register(MCWandsService::class.java, MCWandsService(), this, ServicePriority.Normal)
+
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, cooldowns::optimize,0,6000L)
     }
 }
 

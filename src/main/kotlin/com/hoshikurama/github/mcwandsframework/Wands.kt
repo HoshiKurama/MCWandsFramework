@@ -24,7 +24,7 @@ sealed class SharedWandData(
     val cooldown: Double,
     val intensity: Int,
     val range: Int,
-    val type: String
+    internal val type: String
 )
 
 /*

@@ -12,7 +12,9 @@ import java.time.Instant
 import java.util.*
 import java.util.function.Consumer
 
+/** typealias for suspend (KotlinWand, CoroutineScope) -> Unit */
 typealias KotlinParameterFunction = suspend (params: KotlinWand, scope: CoroutineScope) -> Unit
+/** typealias for Consumer<JavaWand>*/
 typealias JavaParameterFunction = Consumer<JavaWand>
 
 

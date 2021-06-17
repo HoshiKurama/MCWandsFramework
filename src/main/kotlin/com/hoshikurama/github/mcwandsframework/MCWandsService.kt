@@ -5,12 +5,25 @@ import java.util.logging.Level
 
 class MCWandsService {
 
+    /**
+     * Register wand from Kotlin code. JAVA USERS CANNOT USE THIS!
+     * @param name Name of wand to register
+     * @param action suspended function of type (KotlinWand, CoroutineScope) -> Unit.
+     * CoroutineScope contains the current scope of the coroutine.
+     * KotlinWand contains the parameters an end user might want. Check out the class for more information.
+     */
     @Suppress("unused")
     fun registerWandInKotlin(name: String, action: KotlinParameterFunction) {
         val wasAdded = mainPlugin.registry.putIfAbsent(name, action)
         logRegisterResult(wasAdded, name)
     }
 
+    /**
+     * Register wand from Java code. Kotlin users may use this as well, but it is strongly advised they use registerWandInKotlin instead.
+     * @param name Name of wand to register
+     * @param action Consumer<JavaWand> function.
+     * JavaWand contains the parameters an end user might want to use. Check out the class for more information.
+     */
     @Suppress("unused")
     fun registerWandInJava(name: String, action: JavaParameterFunction) {
         // Wraps Java function with Kotlin wrapper

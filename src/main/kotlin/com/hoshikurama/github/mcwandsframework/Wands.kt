@@ -6,6 +6,19 @@ import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 
+/**
+ * Shared Data between JavaWand and KotlinWand
+ * @param player Player using wand
+ * @param cooldown Cooldown in seconds for which user will be added to the wand's associated cooldown
+ * @param intensity Multi-purpose used to describe the general strength of the wand
+ * @param range general range of the wand
+ * @param type Wand type
+ * @property player Player using wand
+ * @property cooldown Cooldown in seconds for which user will be added to the wand's associated cooldown
+ * @property intensity Multi-purpose used to describe the general strength of the wand
+ * @property range general range of the wand
+ * @property type Wand type. Returns the registered wand type
+ */
 sealed class SharedWandData(
     val player: Player,
     val cooldown: Double,
@@ -20,6 +33,16 @@ NOTE:
     USE INTERNALLY. When Java-based functions are registered into the system, they are converted into
     a Kotlin function that wraps around the Java function
  */
+
+/**
+ * Holds data end-users may use inside wand code.
+ * @param player Player using wand
+ * @param cooldown Cooldown in seconds for which user will be added to the wand's associated cooldown
+ * @param intensity Multi-purpose used to describe the general strength of the wand
+ * @param range general range of the wand
+ * @param type Wand type
+ * @property simpleScheduler SimpleScheduler to provide easy access to the Bukkit Scheduler
+ */
 class JavaWand(
     player: Player,
     cooldown: Double,
@@ -30,6 +53,15 @@ class JavaWand(
     val simpleScheduler = SimpleSchedulerJava(mainPlugin, Bukkit.getScheduler())
 }
 
+/**
+ * Holds data end-users may use inside wand code.
+ * @param player Player using wand
+ * @param cooldown Cooldown in seconds for which user will be added to the wand's associated cooldown
+ * @param intensity Multi-purpose used to describe the general strength of the wand
+ * @param range general range of the wand
+ * @param type Wand type
+ * @property simpleScheduler SimpleScheduler to provide easy access to the Bukkit Scheduler
+ */
 class KotlinWand(
     player: Player,
     cooldown: Double,

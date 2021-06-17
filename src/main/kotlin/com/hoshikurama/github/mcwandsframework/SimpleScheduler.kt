@@ -7,10 +7,8 @@ import java.util.concurrent.Future
 
 /**
  * Simple scheduling class for Kotlin users that abstracts away the scheduler and main plugin instance
- * for BukkitScheduler needs that involve the plugin class.
- * Uses functions instead of Runnables.
- *
- * Java users should NEVER be able to use this
+ * for BukkitScheduler needs that involve the plugin class. Uses functions instead of Runnables.
+ * Java users should NEVER use this
  **/
 class SimpleSchedulerKotlin(
     private val plugin: Plugin,

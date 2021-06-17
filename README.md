@@ -140,5 +140,16 @@ public class TestWand extends JavaPlugin {
   }  
 }
 ```
+# Function Parameter Information
+Java users and Kotlin users alike have access to a wand parameter object when defining the wand behaviour function. This object contains the following properties:
+| Property | Description |
+| --- | --- |
+| player | Player using wand |
+| cooldown | Specialty cooldown value on wand |
+| intensity | Multi-purpose value representing the strength of the specialty action |
+| range | Multi-purpose value representing the range of the specialty action |
+| simpleScheduler | More explained below |
+### SimpleScheduler
+SimpleScheduler is a light wrapper for the Bukkit Scheduler that abstracts away the main plugin from the end developer. This class does not contain any function for accepting a BukkitRunable object, so if this is something you need, you may retrieve the underlying plugin object from this object.
 # Kotlin
 MCWandsFramework was written entirely in Kotlin. Furthermore, Kotlin users have access to more parts of this framework than Java users, most namely coroutines. If you don't know what coroutines are, no worries! The coroutine part of this framework can be completely ignored! Just treat your code like any other code you would write! For those who do have experience with coroutines, all wand actions by default run on a coroutine in the main thread. When registering a wand with Kotlin, users have access to both the specialty parameters of the wand and the CoroutineScope object inside the registered function.

@@ -8,6 +8,7 @@ import com.hoshikurama.github.mcwandsframework.events.Commands
 import com.hoshikurama.github.mcwandsframework.events.PlayerInteractionEvent
 import com.hoshikurama.github.mcwandsframework.events.TabCompletion
 import org.bukkit.Bukkit
+import org.bukkit.ChatColor
 import org.bukkit.plugin.ServicePriority
 
 internal val mainPlugin: MCWandsFramework
@@ -26,7 +27,7 @@ class MCWandsFramework : SuspendingJavaPlugin() {
 
     override fun onEnable() {
         instance = this
-        metrics = Metrics(this, bStatsKey)
+        metrics = Metrics(this, 11711)
 
         server.pluginManager.registerSuspendingEvents(PlayerInteractionEvent(), this)
         getCommand("mcwands")?.setSuspendingTabCompleter(TabCompletion())
@@ -35,3 +36,5 @@ class MCWandsFramework : SuspendingJavaPlugin() {
         Bukkit.getServicesManager().register(MCWandsService::class.java, MCWandsService(), this, ServicePriority.Normal)
     }
 }
+
+internal fun String.addColour() = ChatColor.translateAlternateColorCodes('&', this)

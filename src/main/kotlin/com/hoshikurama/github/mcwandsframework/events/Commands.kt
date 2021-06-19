@@ -2,11 +2,13 @@ package com.hoshikurama.github.mcwandsframework.events
 
 import com.github.shynixn.mccoroutine.SuspendingCommandExecutor
 import com.hoshikurama.github.mcwandsframework.addColour
+import com.hoshikurama.github.mcwandsframework.tryOrNull
 import org.bukkit.Material
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
+
 
 class Commands : SuspendingCommandExecutor {
 
@@ -16,6 +18,7 @@ class Commands : SuspendingCommandExecutor {
         label: String,
         args: Array<out String>
     ): Boolean {
+
         if (sender is Player && !sender.hasPermission("mcwands.create")) {
             sender.sendMessage("&cYou do not have permission to perform this command!".addColour())
         }
@@ -82,9 +85,6 @@ class Commands : SuspendingCommandExecutor {
         else sender.sendMessage("&6[MinecraftWands]:&6 Please refer to the tab-complete for proper usage of this command.")
 
         return true
+
     }
 }
-
-private inline fun <T> tryOrNull(function: () -> T): T? =
-    try { function() }
-    catch (ignored: Exception) { null }

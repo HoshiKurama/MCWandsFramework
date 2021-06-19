@@ -10,19 +10,12 @@ import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import java.time.Instant
 import java.util.*
-import java.util.function.Consumer
 
-/** typealias for suspend (KotlinWand, CoroutineScope) -> Unit */
-typealias KotlinParameterFunction = suspend (params: KotlinWand, scope: CoroutineScope) -> Unit
-/** typealias for Consumer<JavaWand>*/
-typealias JavaParameterFunction = Consumer<JavaWand>
-
-
-class Registry {
-    private val registry: MutableMap<String, KotlinParameterFunction> = mutableMapOf()
+internal class Registry {
+    private val registry: MutableMap<String, KotlinWandFunction> = mutableMapOf()
 
     init {
-        registry["Normal"] = { params, scope ->
+        registry["Normal"] = KotlinWandFunction { params, _ ->
             val particleLocation = params.player.eyeLocation.clone()
             val particleDirectionAdd = particleLocation.direction.clone().multiply(0.25)
 
@@ -32,12 +25,12 @@ class Registry {
                 .forEach { it.playSound(it.eyeLocation, Sound.ENTITY_FIREWORK_ROCKET_BLAST, 100f, 3.5f) }
 
             // Animated path and raytrace. Frequently ray-traces to simulate velocity
-            for (i in 0..(params.range - 2) step 1) {
+            for (i in 2..params.range step 2) {
                 // Trace
                 val traceResult = params.player.world.rayTrace(
                     particleLocation,
                     particleDirectionAdd,
-                    1.0,
+                    2.0,
                     FluidCollisionMode.NEVER,
                     true,
                     1.02,
@@ -45,7 +38,7 @@ class Registry {
                 )
 
                 //Particles
-                repeat(4) {
+                repeat(8) {
                     params.player.world.spawnParticle(Particle.SPELL_INSTANT, particleLocation, 1)
                     particleLocation.add(particleDirectionAdd)
                 }
@@ -69,12 +62,14 @@ class Registry {
 
     internal fun keys() = registry.keys.toList()
 
-    internal fun putIfAbsent(name: String, action: KotlinParameterFunction) =
+    internal fun putIfAbsent(name: String, action: KotlinWandFunction): Any? =
         registry.putIfAbsent(name, action)
 
-    internal suspend fun runWand(type: String, parameters: KotlinWand, coroutineScope: CoroutineScope) =
-        registry[type]?.invoke(parameters, coroutineScope)
+    internal suspend fun runWand(type: String, parameters: WandData, coroutineScope: CoroutineScope) =
+        registry[type]?.execute(parameters, coroutineScope)
 }
+
+private fun Any.notEquals(any: Any?) = this != any
 
 
 class Cooldowns {
@@ -84,10 +79,14 @@ class Cooldowns {
         map[type]?.get(uuid)
 
     internal fun underCooldown(player: Player, type: String) =
-        map[type]?.get(player.uniqueId)?.isBefore(Instant.now()) ?: false
+        map[type]?.get(player.uniqueId)?.isAfter(Instant.now()) ?: false
 
     internal fun addToCooldown(player: Player, type: String, seconds: Double) {
-        map[type]?.put(player.uniqueId, Instant.now().plusMillis((seconds * 1000).toLong()))
+        map[type]?.put(player.uniqueId, Instant.now().plusMillis((seconds * 1000L).toLong()))
+    }
+
+    internal fun registerType(name: String) {
+        map[name] = mutableMapOf()
     }
 
     internal fun optimize() {
@@ -101,4 +100,6 @@ class Cooldowns {
     }
 }
 
-private fun Any.notEquals(any: Any?) = this != any
+internal inline fun <T> tryOrNull(function: () -> T): T? =
+    try { function() }
+    catch (ignored: Exception) { null }

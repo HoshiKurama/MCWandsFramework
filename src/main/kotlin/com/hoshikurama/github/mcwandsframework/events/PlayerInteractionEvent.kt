@@ -19,7 +19,7 @@ class PlayerInteractionEvent : Listener {
                 val player = event.player
                 val item = player.inventory.itemInMainHand
 
-                val wand: KotlinWand? =
+                val wand: WandData? =
                     if (event.action == Action.LEFT_CLICK_AIR)
                         getNormalWandOrNull(player, item)
                     else getSpecialtyWandOrNull(player, item)
@@ -28,7 +28,7 @@ class PlayerInteractionEvent : Listener {
                     val cooldowns = mainPlugin.cooldowns
 
                     if (cooldowns.underCooldown(player, wand.type)) {
-                        player.sendMessage("&3Your wand still has a cooldown of ${Instant.now().epochSecond - cooldowns.getInstantOrNull("Normal", player.uniqueId)!!.epochSecond} seconds!".addColour())
+                        player.sendMessage("&3Your wand still has a cooldown of ${cooldowns.getInstantOrNull("Normal", player.uniqueId)!!.epochSecond - Instant.now().epochSecond} seconds!".addColour())
                         return
                     }
                     if (!player.hasPermission("mcwands.use")) {
@@ -36,10 +36,9 @@ class PlayerInteractionEvent : Listener {
                         return
                     }
 
+                    mainPlugin.cooldowns.addToCooldown(player, wand.type, wand.cooldown)
                     try { mainPlugin.registry.runWand(wand.type, wand, mainPlugin.scope) }
                     catch (e: Exception) { event.player.sendMessage("&cAn error occurred while using this wand!".addColour()) }
-
-                    mainPlugin.cooldowns.addToCooldown(player, wand.type, wand.cooldown)
                 }
             }
             else -> return

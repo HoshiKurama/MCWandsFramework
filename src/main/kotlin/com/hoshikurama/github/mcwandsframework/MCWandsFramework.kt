@@ -7,6 +7,7 @@ import com.github.shynixn.mccoroutine.setSuspendingTabCompleter
 import com.hoshikurama.github.mcwandsframework.events.Commands
 import com.hoshikurama.github.mcwandsframework.events.PlayerInteractionEvent
 import com.hoshikurama.github.mcwandsframework.events.TabCompletion
+
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.plugin.ServicePriority
@@ -16,8 +17,9 @@ internal val mainPlugin: MCWandsFramework
 
 
 class MCWandsFramework : SuspendingJavaPlugin() {
-    internal val registry = Registry()
     internal val cooldowns = Cooldowns()
+    internal val registry = Registry()
+    private val service = MCWandsServiceClass()
 
     private lateinit var metrics: Metrics
 
@@ -28,15 +30,17 @@ class MCWandsFramework : SuspendingJavaPlugin() {
     override fun onEnable() {
         instance = this
         metrics = Metrics(this, 11711)
+        cooldowns.registerType("Normal")
 
         server.pluginManager.registerSuspendingEvents(PlayerInteractionEvent(), this)
         getCommand("mcwands")?.setSuspendingTabCompleter(TabCompletion())
         getCommand("mcwands")?.setSuspendingExecutor(Commands())
 
-        Bukkit.getServicesManager().register(MCWandsService::class.java, MCWandsService(), this, ServicePriority.Normal)
+        Bukkit.getServicesManager().register(MCWandsService::class.java, service, this, ServicePriority.Normal)
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, cooldowns::optimize,0,6000L)
     }
 }
 
 internal fun String.addColour() = ChatColor.translateAlternateColorCodes('&', this)
+

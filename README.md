@@ -66,15 +66,15 @@ Kotlin
 val mcWandsService: MCWandsService? = Bukkit.getServicesManager().getRegistration(MCWandsService::class.java)?.provider  
  
  // Wand code may be defined at registration...
-mcWandsService?.registerWandInKotlin("WandNameHere") { params, scope ->  
+mcWandsService?.registerWandKotlin("WandName") { params, scope ->  
   /* Your code here! */
 }
 
 // ...or it may be first assigned to a variable!
-val wandCode: KotlinParameterFunction = { params, scope ->    
+val wandCode = KotlinWandFunction { params, scope ->    
   /* You code here */  
 }  
-mcWandsService?.registerWandInKotlin("WandNameHere", wandCode)
+mcWandsService?.registerWandKotlin("WandNameHere", wandCode)
 ```
 Java
 ```java
@@ -84,11 +84,15 @@ RegisteredServiceProvider<MCWandsService> rsp = Bukkit.getServicesManager().getR
 if (rsp != null) {  
   MCWandsService mcWandsService = rsp.getProvider();  
   // Wand code may be defined at registration...  
-  mcWandsService.registerWandInJava("WandNameHere", params -> {/* Your code here */});  
+  mcWandsService.registerWandJava("WandNameHere", params -> {
+    /* Your code here */
+  });  
   
   // ...or it may be first assigned to a variable!  
-  Consumer<JavaWand> wandCode = params -> {/* Your code here */};  
-  mcWandsService.registerWandInJava("WandNameHere", wandCode);  
+  Consumer<WandData> wandCode = params -> {
+    /* Your code here */
+  };  
+  mcWandsService.registerWandJava("WandNameHere", wandCode);  
 }  
   
   
@@ -96,8 +100,8 @@ if (rsp != null) {
 Optional.ofNullable(Bukkit.getServicesManager().getRegistration(MCWandsService.class))
     .map(RegisteredServiceProvider::getProvider)  
     .ifPresent( service -> {  
-      service.registerWandInJava("WandNameHere", params -> {  
-      /* Your code here */ 
+      service.registerWandJava("WandNameHere", params -> {  
+        /* Your code here */ 
       });  
     });
 ```
@@ -114,7 +118,12 @@ class TestWand : JavaPlugin() {
   override fun onEnable() {  
     Bukkit.getServicesManager().getRegistration(MCWandsService::class.java)  
       ?.provider  
-      ?.registerWandInKotlin("Test") { params,_ -> params.player.sendMessage("Test successful!") }  
+      ?.run {
+        registerWandKotlin("Fire", FireWand)
+        registerWandKotlin("Name") { params,_ -> 
+          params.player.sendMessage("Your name is: ${params.player.name}!") 
+        }
+      }
   }  
 }
 ```
@@ -135,8 +144,13 @@ public class TestWand extends JavaPlugin {
     Optional.ofNullable(Bukkit.getServicesManager().getRegistration(MCWandsService.class))
         .map(RegisteredServiceProvider::getProvider)  
         .ifPresent( service -> {  
-          service.registerWandInJava("Test", p -> p.getPlayer().sendMessage("Test successful!"));  
+          service.registerWandJava("Fire", fireWand);
+          service.registerWandJava("Name", params -> {
+            Player player = params.getPlayer();
+            player.sendMessage("Your name is: " + player.getName() + "!");
+          });
         });
+          
   }  
 }
 ```
@@ -150,39 +164,24 @@ Java users and Kotlin users alike have access to a wand parameter object when de
 | range | Multi-purpose value representing the range of the specialty action |
 | simpleScheduler | More explained below |
 ### SimpleScheduler
-SimpleScheduler is a light wrapper for the Bukkit Scheduler that abstracts away the main plugin from the end developer. This class does not contain any function for accepting a BukkitRunable object, so if this is something you need, you may retrieve the underlying plugin object from this object.
+SimpleScheduler is a light wrapper for the Bukkit Scheduler that abstracts away the main plugin from the end developer. This class only contains functions that accept code as a Runnable. Any users desiring to use the BukkitScheduler class can still use this by retrieving the Plugin instance contained by this object.
 # Kotlin
-MCWandsFramework was written entirely in Kotlin. Furthermore, Kotlin users have access to more parts of this framework than Java users, most namely coroutines. If you don't know what coroutines are, no worries! The coroutine part of this framework can be completely ignored! Just treat your code like any other code you would write! For those who do have experience with coroutines, all wand actions by default run on a coroutine in the main thread. When registering a wand with Kotlin, users have access to both the specialty parameters of the wand and the CoroutineScope object inside the registered function.
+MCwandsFramework was written in Kotlin. Kotlin users will have a more seamless experience when developing extra wands. However, Kotlin users also have access to coroutines. MCWandsFramework utilizes the MCCoroutines library.  
 
-In order to use the coroutines, Kotlin users must add these extra dependencies:
+If you're unaware of what coroutines are or don't want to use them, don't worry! They're not required to use, so feel free to write your code as usual. For those who do desire to use coroutines, the SAM (functional) interface KotlinWandFunction used to register Kotlin wands has a parameter for the wand data and a parameter for the coroutine scope. This interface is furthermore a suspend function. All wands begin execution on a coroutine working in the main thread.
 
-Kotlin DSL (build.gradle.kts)
+MCCoroutines has two dispatchers: one for the main thread and another for non-main threads. Calling async {} without specifying the async coroutine context results in execution still on the main thread. To utilize coroutines on other threads, the async dispatcher coroutine context must be acquired. This can be done in the following way:
 ```kotlin
-implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
-implementation("com.github.shynixn.mccoroutine:mccoroutine-bukkit-api:1.5.0")
-implementation("com.github.shynixn.mccoroutine:mccoroutine-bukkit-core:1.5.0")
+// This gets the async dispatcher coroutine context
+val asyncContext = (params.simpleScheduler.plugin as SuspendingJavaPlugin).asyncDispatcher
+
+// scope is already the main-thread coroutine context, but it can still be retrieved in the following way
+val mainContext = (params.simpleScheduler.plugin as SuspendingJavaPlugin).minecraftDispatcher
 ```
-Groovy (build.gradle)
-```groovy
-implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0'
-implementation 'com.github.shynixn.mccoroutine:mccoroutine-bukkit-api:1.5.0'
-implementation 'com.github.shynixn.mccoroutine:mccoroutine-bukkit-core:1.5.0'
-```
-Maven (pom.xml)
-```xml
-<dependency>
-    <groupId>org.jetbrains.kotlinx</groupId>
-    <artifactId>kotlinx-coroutines-core</artifactId>
-    <version>1.5.0</version>
-  </dependency>
-<dependency>
-    <groupId>com.github.shynixn.mccoroutine</groupId>
-    <artifactId>mccoroutine-bukkit-api</artifactId>
-    <version>1.5.0</version>
-  </dependency>
-<dependency>
-    <groupId>com.github.shynixn.mccoroutine</groupId>
-    <artifactId>mccoroutine-bukkit-core</artifactId>
-    <version>1.5.0</version>
-  </dependency>
-```
+
+**IMPORTANT INFORMATION:** Kotlin users, please do **NOT** shade the following dependencies into your custom wand Jar:
+* MCCoroutines
+* Kotlin coroutine library
+* Kotlin standard library
+
+These are provided during runtime by the framework. Shading any of these dependencies in or allowing Spigot/Paper to download these libraries for your custom wands will cause a ClassLoader exception. Any dependencies aside from these are okay to shade into your Jar.

@@ -25,37 +25,35 @@ Adding wands to MCWandsFramework is simple, whether it be in Java or Kotlin!
 Groovy (build.gradle)
 ```groovy
 repositories {
-  maven { url 'https://jitpack.io' }
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
-  implementation 'com.github.HoshiKurama:MCWandsFramework:4.0.1'
+    implementation 'com.github.HoshiKurama:MCWandsFramework:4.0.1'
 }
 ```
 Kotlin (build.gradle.kts)
 ```kotlin
-repositories {
-  maven { url = uri("https://jitpack.io") }
+repositories { 
+    maven { url = uri("https://jitpack.io") }
 }
 
 dependencies {
-  implementation("com.github.HoshiKurama:MCWandsFramework:4.0.1")
+    implementation("com.github.HoshiKurama:MCWandsFramework:4.0.1")
 }
 ```
 Maven (pom.xml)
 ```xml
 <repository>
-  <id>jitpack.io</id>
-  <url>https://jitpack.io</url>
+    <id>jitpack.io</id>
+    <url>https://jitpack.io</url>
 </repository>
 
-<dependencies>
-  <dependency>
+<dependency>
     <groupId>com.github.HoshiKurama</groupId>
     <artifactId>MCWandsFramework</artifactId>
     <version>4.0.1</version>
-  </dependency>
-</dependencies>
+</dependency>
 ```
 ## Registration
 MCWandsFramework provides service through the ServicesManager API. Wand registration should only occur during or after onEnable is called. All registration must be performed on the main thread. Depending on the language used, registration can occur in the following ways:
@@ -65,14 +63,14 @@ Kotlin
 // Nullable MCWands service acquired
 val mcWandsService: MCWandsService? = Bukkit.getServicesManager().getRegistration(MCWandsService::class.java)?.provider  
  
- // Wand code may be defined at registration...
+// Wand code may be defined at registration...
 mcWandsService?.registerWandKotlin("WandName") { params, scope ->  
-  /* Your code here! */
+    /* Your code here! */
 }
 
 // ...or it may be first assigned to a variable!
 val wandCode = KotlinWandFunction { params, scope ->    
-  /* You code here */  
+    /* You code here */  
 }  
 mcWandsService?.registerWandKotlin("WandNameHere", wandCode)
 ```
@@ -82,28 +80,28 @@ Java
 RegisteredServiceProvider<MCWandsService> rsp = Bukkit.getServicesManager().getRegistration(MCWandsService.class);  
   
 if (rsp != null) {  
-  MCWandsService mcWandsService = rsp.getProvider();  
-  // Wand code may be defined at registration...  
-  mcWandsService.registerWandJava("WandNameHere", params -> {
-    /* Your code here */
-  });  
-  
-  // ...or it may be first assigned to a variable!  
-  Consumer<WandData> wandCode = params -> {
-    /* Your code here */
-  };  
-  mcWandsService.registerWandJava("WandNameHere", wandCode);  
+    MCWandsService mcWandsService = rsp.getProvider();  
+    // Wand code may be defined at registration...  
+    mcWandsService.registerWandJava("WandNameHere", params -> {
+        /* Your code here */
+    });  
+
+    // ...or it may be first assigned to a variable!  
+    Consumer<WandData> wandCode = params -> {
+        /* Your code here */
+    };  
+    mcWandsService.registerWandJava("WandNameHere", wandCode);  
 }  
-  
-  
-// Java optionals can be used instead!:  
+
+
+// Java optionals can be used instead to replace all above:  
 Optional.ofNullable(Bukkit.getServicesManager().getRegistration(MCWandsService.class))
-    .map(RegisteredServiceProvider::getProvider)  
-    .ifPresent( service -> {  
-      service.registerWandJava("WandNameHere", params -> {  
-        /* Your code here */ 
-      });  
-    });
+        .map(RegisteredServiceProvider::getProvider)  
+        .ifPresent( service -> {  
+            service.registerWandJava("WandNameHere", params -> {  
+                /* Your code here */ 
+            });  
+        });
 ```
 NOTE: Please make sure to list MCWandsFramework as a dependency in your plugin.yml!
 ### Example Code:
@@ -115,16 +113,16 @@ import org.bukkit.plugin.java.JavaPlugin
   
 class TestWand : JavaPlugin() {  
   
-  override fun onEnable() {  
-    Bukkit.getServicesManager().getRegistration(MCWandsService::class.java)  
-      ?.provider  
-      ?.run {
-        registerWandKotlin("Fire", FireWand)
-        registerWandKotlin("Name") { params,_ -> 
-          params.player.sendMessage("Your name is: ${params.player.name}!") 
-        }
-      }
-  }  
+    override fun onEnable() {  
+        Bukkit.getServicesManager().getRegistration(MCWandsService::class.java)  
+            ?.provider  
+            ?.run {
+                registerWandKotlin("Fire", FireWand)
+                registerWandKotlin("Name") { params,_ -> 
+                    params.player.sendMessage("Your name is: ${params.player.name}!") 
+                }
+            }
+    }  
 }
 ```
 Java
@@ -138,24 +136,25 @@ import java.util.Optional;
   
 public class TestWand extends JavaPlugin {
 
-  @Override  
-  public void onEnable() {
-
-    Optional.ofNullable(Bukkit.getServicesManager().getRegistration(MCWandsService.class))
-        .map(RegisteredServiceProvider::getProvider)  
-        .ifPresent( service -> {  
-          service.registerWandJava("Fire", fireWand);
-          service.registerWandJava("Name", params -> {
-            Player player = params.getPlayer();
-            player.sendMessage("Your name is: " + player.getName() + "!");
-          });
-        });
-          
-  }  
+    @Override  
+    public void onEnable() {
+    
+        Optional.ofNullable(Bukkit.getServicesManager().getRegistration(MCWandsService.class))
+                .map(RegisteredServiceProvider::getProvider)  
+                .ifPresent( service -> {  
+                    service.registerWandJava("Fire", fireWand);
+                    service.registerWandJava("Name", params -> {
+                        Player player = params.getPlayer();
+                        player.sendMessage("Your name is: " + player.getName() + "!");
+                    });
+                });
+    
+    }  
 }
 ```
 # Function Parameter Information
 Java users and Kotlin users alike have access to a wand parameter object when defining the wand behaviour function. This object contains the following properties:
+
 | Property | Description |
 | --- | --- |
 | player | Player using wand |
@@ -164,7 +163,7 @@ Java users and Kotlin users alike have access to a wand parameter object when de
 | range | Multi-purpose value representing the range of the specialty action |
 | simpleScheduler | More explained below |
 ### SimpleScheduler
-SimpleScheduler is a light wrapper for the Bukkit Scheduler that abstracts away the main plugin from the end developer. This class only contains functions that accept code as a Runnable. Any users desiring to use the BukkitScheduler class can still use this by retrieving the Plugin instance contained by this object.
+SimpleScheduler is a light wrapper for the BukkitScheduler. This class executes BukkitScheduler functions with MCWandsFramework as the task owner. Furthermore, this class only contains function that accept code as a Runnable. Any users desiring to use the BukkitScheduler with their own plugin as the task owner or use tasks that accept a BukkitRunable can still do this by referencing their own plugin instance. The plugin instance contained by this wrapper is NOT the custom wand plugin. It is instead the MCWandsFramework plugin instance.
 # Kotlin
 MCwandsFramework was written in Kotlin. Kotlin users will have a more seamless experience when developing extra wands. However, Kotlin users also have access to coroutines. MCWandsFramework utilizes the MCCoroutines library.  
 

@@ -22,27 +22,27 @@ Adding wands to MCWandsFramework is simple, whether it be in Java or Kotlin!
 * MCWandsFramework is compiled to Java 11+ for Minecraft 1.16 and Java 16+ for Minecraft 1.17+. Custom wands should meet or exceed this specification.
 * Kotlin users have access to some extra stuff that will be discussed in the Kotlin section.
 ## Dependency Information:
-Groovy (build.gradle)
+Gradle (Groovy DSL)
 ```groovy
 repositories {
     maven { url 'https://jitpack.io' }
 }
 
 dependencies {
-    implementation 'com.github.HoshiKurama:MCWandsFramework:4.0.1'
+    implementation 'com.github.HoshiKurama:MCWandsFramework:4.0.3'
 }
 ```
-Kotlin (build.gradle.kts)
+Gradle (Kotlin DSL)
 ```kotlin
 repositories { 
     maven { url = uri("https://jitpack.io") }
 }
 
 dependencies {
-    implementation("com.github.HoshiKurama:MCWandsFramework:4.0.1")
+    implementation("com.github.HoshiKurama:MCWandsFramework:4.0.3")
 }
 ```
-Maven (pom.xml)
+Maven
 ```xml
 <repository>
     <id>jitpack.io</id>
@@ -52,7 +52,7 @@ Maven (pom.xml)
 <dependency>
     <groupId>com.github.HoshiKurama</groupId>
     <artifactId>MCWandsFramework</artifactId>
-    <version>4.0.1</version>
+    <version>4.0.3</version>
 </dependency>
 ```
 ## Registration

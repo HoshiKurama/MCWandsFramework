@@ -29,7 +29,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.HoshiKurama:MCWandsFramework:4.0.3'
+    implementation 'com.github.HoshiKurama:MCWandsFramework:4.0.4'
 }
 ```
 Gradle (Kotlin DSL)
@@ -39,7 +39,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.HoshiKurama:MCWandsFramework:4.0.3")
+    implementation("com.github.HoshiKurama:MCWandsFramework:4.0.4")
 }
 ```
 Maven
@@ -52,7 +52,7 @@ Maven
 <dependency>
     <groupId>com.github.HoshiKurama</groupId>
     <artifactId>MCWandsFramework</artifactId>
-    <version>4.0.3</version>
+    <version>4.0.4</version>
 </dependency>
 ```
 ## Registration

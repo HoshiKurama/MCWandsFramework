@@ -1,7 +1,6 @@
 package com.hoshikurama.github.mcwandsframework
 
 import kotlinx.coroutines.CoroutineScope
-
 import org.bukkit.entity.Player
 import java.time.Instant
 import java.util.*

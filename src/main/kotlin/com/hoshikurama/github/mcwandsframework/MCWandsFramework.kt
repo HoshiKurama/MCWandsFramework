@@ -18,7 +18,6 @@ internal val mainPlugin: MCWandsFramework
 
 
 class MCWandsFramework : SuspendingJavaPlugin() {
-    internal val doubleFireFix = Cooldowns()
     internal val cooldowns = Cooldowns()
     internal val registry = Registry()
     private val service = MCWandsServiceClass()

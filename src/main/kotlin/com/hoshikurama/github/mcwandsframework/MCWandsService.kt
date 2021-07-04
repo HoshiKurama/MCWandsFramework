@@ -45,7 +45,6 @@ class MCWandsServiceClass : MCWandsService {
                 if (this) {
                     logIfSuccessful(name)
                     mainPlugin.cooldowns.registerType(name)
-                    mainPlugin.doubleFireFix.registerType(name)
                 }
             }
 
@@ -59,7 +58,6 @@ class MCWandsServiceClass : MCWandsService {
                 if (this) {
                     logIfSuccessful(name)
                     mainPlugin.cooldowns.registerType(name)
-                    mainPlugin.doubleFireFix.registerType(name)
                 }
             }
     }

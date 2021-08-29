@@ -1,7 +1,7 @@
-package com.hoshikurama.github.mcwandsframework.events
+package com.github.hoshikurama.mcwandsframework.events
 
+import com.github.hoshikurama.mcwandsframework.mainPlugin
 import com.github.shynixn.mccoroutine.SuspendingTabCompleter
-import com.hoshikurama.github.mcwandsframework.mainPlugin
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player

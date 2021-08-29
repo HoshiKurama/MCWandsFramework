@@ -9,10 +9,10 @@ plugins {
 }
 
 application {
-    mainClass.set("com.hoshikurama.github.mcwandsframework.MCWandsFramework")
+    mainClass.set("com.github.hoshikurama.mcwandsframework.MCWandsFramework")
 }
 
-group = "com.hoshikurama.github"
+group = "com.github.hoshikurama"
 version = "5.0.0"
 
 repositories {
@@ -35,6 +35,10 @@ tasks {
             include(dependency("com.github.shynixn.mccoroutine:mccoroutine-bukkit-api:1.5.0"))
             include(dependency("com.github.shynixn.mccoroutine:mccoroutine-bukkit-core:1.5.0"))
             include(dependency("org.jetbrains.kotlin:kotlin-stdlib:1.5.30"))
+
+            relocate("kotlin", "com.github.hoshikurama.mcwandsframework.shaded.kotlin")
+            relocate("kotlinx.coroutines", "com.github.hoshikurama.mcwandsframework.shaded.kotlinx.coroutines")
+            relocate("com.github.shynixn.mccoroutine", "com.github.hoshikurama.mcwandsframework.shaded.com.github.shynixn.mccoroutine")
         }
     }
 }

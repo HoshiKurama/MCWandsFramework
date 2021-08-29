@@ -1,13 +1,14 @@
-package com.hoshikurama.github.mcwandsframework
+package com.github.hoshikurama.mcwandsframework
 
+import com.github.hoshikurama.mcwandsframework.events.Commands
+import com.github.hoshikurama.mcwandsframework.events.PlayerInteractionEvent
+import com.github.hoshikurama.mcwandsframework.events.TabCompletion
+import com.github.hoshikurama.mcwandsframework.service.MCWandsService
+import com.github.hoshikurama.mcwandsframework.service.MCWandsServiceImpl
 import com.github.shynixn.mccoroutine.SuspendingJavaPlugin
 import com.github.shynixn.mccoroutine.registerSuspendingEvents
 import com.github.shynixn.mccoroutine.setSuspendingExecutor
 import com.github.shynixn.mccoroutine.setSuspendingTabCompleter
-import com.hoshikurama.github.mcwandsframework.events.Commands
-import com.hoshikurama.github.mcwandsframework.events.PlayerInteractionEvent
-import com.hoshikurama.github.mcwandsframework.events.TabCompletion
-import com.hoshikurama.github.mcwandsframework.service.MCWandsServiceImpl
 import kotlinx.coroutines.delay
 import org.bukkit.*
 import org.bukkit.entity.LivingEntity

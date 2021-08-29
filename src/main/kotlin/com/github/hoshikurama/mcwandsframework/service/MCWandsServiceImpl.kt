@@ -1,9 +1,7 @@
-package com.hoshikurama.github.mcwandsframework.service
+package com.github.hoshikurama.mcwandsframework.service
 
-import com.hoshikurama.github.mcwandsframework.KotlinWandFunction
-import com.hoshikurama.github.mcwandsframework.MCWandsService
-import com.hoshikurama.github.mcwandsframework.WandData
-import com.hoshikurama.github.mcwandsframework.mainPlugin
+import com.github.hoshikurama.mcwandsframework.WandData
+import com.github.hoshikurama.mcwandsframework.mainPlugin
 import org.bukkit.Bukkit
 import java.util.function.Consumer
 import java.util.logging.Level

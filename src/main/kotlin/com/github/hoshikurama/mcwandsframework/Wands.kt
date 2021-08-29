@@ -1,4 +1,4 @@
-package com.hoshikurama.github.mcwandsframework
+package com.github.hoshikurama.mcwandsframework
 
 import org.bukkit.ChatColor
 import org.bukkit.Material

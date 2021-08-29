@@ -1,6 +1,6 @@
 name: MCWandsFramework
 version: 5.0.0
-main: com.hoshikurama.github.mcwandsframework.MCWandsFramework
+main: com.github.hoshikurama.mcwandsframework.MCWandsFramework
 api-version: 1.17
 authors: [HoshiKurama]
 commands:

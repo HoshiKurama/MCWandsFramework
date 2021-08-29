@@ -1,4 +1,4 @@
-package com.hoshikurama.github.mcwandsframework
+package com.github.hoshikurama.mcwandsframework
 
 import org.bukkit.Bukkit
 import org.bukkit.configuration.file.YamlConfiguration

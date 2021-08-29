@@ -1,8 +1,8 @@
-package com.hoshikurama.github.mcwandsframework.events
+package com.github.hoshikurama.mcwandsframework.events
 
+import com.github.hoshikurama.mcwandsframework.addColour
+import com.github.hoshikurama.mcwandsframework.tryOrNull
 import com.github.shynixn.mccoroutine.SuspendingCommandExecutor
-import com.hoshikurama.github.mcwandsframework.addColour
-import com.hoshikurama.github.mcwandsframework.tryOrNull
 import org.bukkit.Material
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender

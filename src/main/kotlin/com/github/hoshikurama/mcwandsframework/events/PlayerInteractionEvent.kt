@@ -1,8 +1,8 @@
-package com.hoshikurama.github.mcwandsframework.events
+package com.github.hoshikurama.mcwandsframework.events
 
+import com.github.hoshikurama.mcwandsframework.*
 import com.github.shynixn.mccoroutine.asyncDispatcher
 import com.github.shynixn.mccoroutine.minecraftDispatcher
-import com.hoshikurama.github.mcwandsframework.*
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action

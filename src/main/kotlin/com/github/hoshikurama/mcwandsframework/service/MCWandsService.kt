@@ -1,5 +1,7 @@
-package com.hoshikurama.github.mcwandsframework
+package com.github.hoshikurama.mcwandsframework.service
 
+import com.github.hoshikurama.mcwandsframework.ContextContainer
+import com.github.hoshikurama.mcwandsframework.WandData
 import java.util.function.Consumer
 
 interface MCWandsService {
@@ -29,5 +31,5 @@ interface MCWandsService {
  * SAM interface for Kotlin wand registration. Provides parameters for WandData and CoroutineScope
  */
 fun interface KotlinWandFunction {
-    suspend fun execute(params: WandData, scopeContainer: ContextContainer )
+    suspend fun execute(params: WandData, contexts: ContextContainer)
 }

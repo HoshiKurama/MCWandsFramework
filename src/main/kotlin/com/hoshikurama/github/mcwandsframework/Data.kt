@@ -1,6 +1,6 @@
 package com.hoshikurama.github.mcwandsframework
 
-import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.coroutineScope
 import org.bukkit.entity.Player
 import java.time.Instant
 import java.util.*
@@ -13,8 +13,8 @@ internal class Registry {
     internal fun putIfAbsent(name: String, action: KotlinWandFunction): Any? =
         registry.putIfAbsent(name, action)
 
-    internal suspend fun runWand(type: String, parameters: WandData, coroutineScope: CoroutineScope) =
-        registry[type]?.execute(parameters, coroutineScope)
+    internal suspend fun runWand(type: String, parameters: WandData, container: ContextContainer) =
+        coroutineScope { registry[type]?.execute(parameters, container) }
 }
 
 class Cooldowns {

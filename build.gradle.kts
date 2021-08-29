@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.5.20"
+    kotlin("jvm") version "1.5.30"
     id("com.github.johnrengelman.shadow") version "7.0.0"
     application
     `java-library`
@@ -13,7 +13,7 @@ application {
 }
 
 group = "com.hoshikurama.github"
-version = "4.0.4"
+version = "5.0.0"
 
 repositories {
     mavenCentral()
@@ -21,26 +21,26 @@ repositories {
 }
 
 dependencies {
-    compileOnly("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT")
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.5.0")
-    api(kotlin("stdlib", version = "1.5.20"))
+    api(kotlin("stdlib", version = "1.5.30"))
     api("com.github.shynixn.mccoroutine:mccoroutine-bukkit-api:1.5.0")
     api("com.github.shynixn.mccoroutine:mccoroutine-bukkit-core:1.5.0")
 }
 
 tasks {
-    named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJar") {
+    shadowJar {
         dependencies {
             include(dependency("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.5.0"))
             include(dependency("com.github.shynixn.mccoroutine:mccoroutine-bukkit-api:1.5.0"))
             include(dependency("com.github.shynixn.mccoroutine:mccoroutine-bukkit-core:1.5.0"))
-            include(dependency("org.jetbrains.kotlin:kotlin-stdlib:1.5.20"))
+            include(dependency("org.jetbrains.kotlin:kotlin-stdlib:1.5.30"))
         }
     }
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "11"
+    kotlinOptions.jvmTarget = "16"
 }
 
 // Publishing Instructions

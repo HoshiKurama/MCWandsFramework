@@ -1,6 +1,5 @@
 package com.hoshikurama.github.mcwandsframework
 
-import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.entity.Player
@@ -13,7 +12,6 @@ import org.bukkit.inventory.ItemStack
  * @property cooldown Cooldown in seconds for which user will be added to the wand's associated cooldown
  * @property intensity Multi-purpose used to describe the general strength of the wand
  * @property range general range of the wand
- * @property simpleScheduler Light wrapper for certain parts of Bukkit Scheduler
  */
 class WandData(
     val player: Player,
@@ -21,9 +19,7 @@ class WandData(
     val intensity: Int,
     val range: Int,
     internal val type: String,
-) {
-    val simpleScheduler = SimpleScheduler(mainPlugin, Bukkit.getScheduler())
-}
+)
 
 internal fun getSpecialtyWandOrNull(player: Player, item: ItemStack): WandData? {
     return if (item.notMCWand()) null

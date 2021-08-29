@@ -1,6 +1,7 @@
 package com.hoshikurama.github.mcwandsframework.events
 
-import com.github.shynixn.mccoroutine.scope
+import com.github.shynixn.mccoroutine.asyncDispatcher
+import com.github.shynixn.mccoroutine.minecraftDispatcher
 import com.hoshikurama.github.mcwandsframework.*
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -49,7 +50,13 @@ class PlayerInteractionEvent : Listener {
                     }
 
                     mainPlugin.cooldowns.addToCooldown(player, wand.type, wand.cooldown)
-                    try { mainPlugin.registry.runWand(wand.type, wand, mainPlugin.scope) }
+                    try {
+                        val container = ContextContainer(
+                            mainPlugin.minecraftDispatcher,
+                            mainPlugin.asyncDispatcher
+                        )
+                        mainPlugin.registry.runWand(wand.type, wand, container)
+                    }
                     catch (e: Exception) { event.player.sendMessage("&cAn error occurred while using this wand!".addColour()) }
                 }
             }

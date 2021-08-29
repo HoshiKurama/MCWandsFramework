@@ -7,6 +7,7 @@ import com.github.shynixn.mccoroutine.setSuspendingTabCompleter
 import com.hoshikurama.github.mcwandsframework.events.Commands
 import com.hoshikurama.github.mcwandsframework.events.PlayerInteractionEvent
 import com.hoshikurama.github.mcwandsframework.events.TabCompletion
+import com.hoshikurama.github.mcwandsframework.service.MCWandsServiceImpl
 import kotlinx.coroutines.delay
 import org.bukkit.*
 import org.bukkit.entity.LivingEntity
@@ -20,7 +21,7 @@ internal val mainPlugin: MCWandsFramework
 class MCWandsFramework : SuspendingJavaPlugin() {
     internal val cooldowns = Cooldowns()
     internal val registry = Registry()
-    private val service = MCWandsServiceClass()
+    private val service = MCWandsServiceImpl()
 
     private lateinit var metrics: Metrics
 

@@ -25,7 +25,8 @@ Before you begin, please note that MCWandsFramework assumes the following:
 * Gradle is chosen build system. 
    * The Kotlin page uses the Kotlin DSL syntax.
    * The Java page uses the Groovy syntax.
-* Users already have a basic understanding of the build system and the chosen language.
+* Users have a basic understanding of the build system and the chosen language.
+* Examples are only meant to be a guide and may not explicitly state where the code is placed in your project.
 
 
 Kotlin users should continue here.  

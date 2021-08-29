@@ -36,6 +36,7 @@ tasks {
             include(dependency("com.github.shynixn.mccoroutine:mccoroutine-bukkit-core:1.5.0"))
             include(dependency("org.jetbrains.kotlin:kotlin-stdlib:1.5.30"))
 
+            // THIS GETS COMMENTED OUT DURING BUILD FOR API CREATION
             relocate("kotlin", "com.github.hoshikurama.mcwandsframework.shaded.kotlin")
             relocate("kotlinx.coroutines", "com.github.hoshikurama.mcwandsframework.shaded.kotlinx.coroutines")
             relocate("com.github.shynixn.mccoroutine", "com.github.hoshikurama.mcwandsframework.shaded.com.github.shynixn.mccoroutine")

@@ -28,5 +28,5 @@ Before you begin, please note that MCWandsFramework assumes the following:
 * Users already have a basic understanding of the build system and the chosen language.
 
 
-Kotlin users should continue here.
+Kotlin users should continue here.  
 Java users should continue here.

@@ -1,12 +1,11 @@
-package com.github.hoshikurama.mcwandsframework.service
+package com.github.hoshikurama.mcwandsframework
 
-import com.github.hoshikurama.mcwandsframework.WandData
-import com.github.hoshikurama.mcwandsframework.mainPlugin
 import org.bukkit.Bukkit
 import java.util.function.Consumer
 import java.util.logging.Level
 
 class MCWandsServiceImpl : MCWandsService {
+
     override fun registerWandKotlin(name: String, action: KotlinWandFunction): Boolean {
         return mainPlugin.registry.putIfAbsent(name, action)
             .run { this == null }

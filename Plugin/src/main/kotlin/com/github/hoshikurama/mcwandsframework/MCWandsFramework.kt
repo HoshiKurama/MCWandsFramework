@@ -3,8 +3,6 @@ package com.github.hoshikurama.mcwandsframework
 import com.github.hoshikurama.mcwandsframework.events.Commands
 import com.github.hoshikurama.mcwandsframework.events.PlayerInteractionEvent
 import com.github.hoshikurama.mcwandsframework.events.TabCompletion
-import com.github.hoshikurama.mcwandsframework.service.MCWandsService
-import com.github.hoshikurama.mcwandsframework.service.MCWandsServiceImpl
 import com.github.shynixn.mccoroutine.SuspendingJavaPlugin
 import com.github.shynixn.mccoroutine.registerSuspendingEvents
 import com.github.shynixn.mccoroutine.setSuspendingExecutor
@@ -94,4 +92,3 @@ class MCWandsFramework : SuspendingJavaPlugin() {
 }
 
 internal fun String.addColour() = ChatColor.translateAlternateColorCodes('&', this)
-

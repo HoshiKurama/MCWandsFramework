@@ -1,6 +1,5 @@
 package com.github.hoshikurama.mcwandsframework
 
-import com.github.hoshikurama.mcwandsframework.service.KotlinWandFunction
 import kotlinx.coroutines.coroutineScope
 import org.bukkit.entity.Player
 import java.time.Instant

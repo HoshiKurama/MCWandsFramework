@@ -13,20 +13,20 @@ import org.bukkit.inventory.ItemStack
  * @property intensity Multi-purpose used to describe the general strength of the wand
  * @property range general range of the wand
  */
-class WandData(
-    val player: Player,
-    val cooldown: Double,
-    val intensity: Int,
-    val range: Int,
+class WandDataImpl(
+    override val player: Player,
+    override val cooldown: Double,
+    override val intensity: Int,
+    override val range: Int,
     internal val type: String,
-)
+) : WandData
 
-internal fun getSpecialtyWandOrNull(player: Player, item: ItemStack): WandData? {
+internal fun getSpecialtyWandOrNull(player: Player, item: ItemStack): WandDataImpl? {
     return if (item.notMCWand()) null
     else getWandOrNull(player, item, 1, isNormal = false)
 }
 
-internal fun getNormalWandOrNull(player: Player, item: ItemStack): WandData? {
+internal fun getNormalWandOrNull(player: Player, item: ItemStack): WandDataImpl? {
     return if (item.notMCWand()) null
     else getWandOrNull(player, item, 0, isNormal = true)
 }
@@ -34,11 +34,11 @@ internal fun getNormalWandOrNull(player: Player, item: ItemStack): WandData? {
 private fun ItemStack.isMCWand() = type == Material.STICK && itemMeta?.lore?.run { ChatColor.stripColor(get(5)) == "MCWands" } ?: false
 private fun ItemStack.notMCWand() = !isMCWand()
 
-private fun getWandOrNull(player: Player, item: ItemStack, statColumn: Int, isNormal: Boolean = false): WandData? {
+private fun getWandOrNull(player: Player, item: ItemStack, statColumn: Int, isNormal: Boolean = false): WandDataImpl? {
     return tryOrNull {
         val lore = item.itemMeta.lore!!
 
-        WandData(
+        WandDataImpl(
             player = player,
             cooldown = ChatColor.stripColor(lore[1])!!
                 .split(" ")[1]
@@ -53,9 +53,9 @@ private fun getWandOrNull(player: Player, item: ItemStack, statColumn: Int, isNo
                 .split("/")[statColumn]
                 .toInt(),
             type =
-                if (isNormal) "Normal"
-                else ChatColor.stripColor(lore[0])!!
-                    .split(": ")[1]
+            if (isNormal) "Normal"
+            else ChatColor.stripColor(lore[0])!!
+                .split(": ")[1]
         )
     }
 }

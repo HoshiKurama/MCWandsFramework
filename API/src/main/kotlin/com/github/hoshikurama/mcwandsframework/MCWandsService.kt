@@ -1,7 +1,5 @@
-package com.github.hoshikurama.mcwandsframework.service
+package com.github.hoshikurama.mcwandsframework
 
-import com.github.hoshikurama.mcwandsframework.ContextContainer
-import com.github.hoshikurama.mcwandsframework.WandData
 import java.util.function.Consumer
 
 interface MCWandsService {

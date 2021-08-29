@@ -23,7 +23,7 @@ class PlayerInteractionEvent : Listener {
                 val player = event.player
                 val item = player.inventory.itemInMainHand
 
-                val wand: WandData? =
+                val wand: WandDataImpl? =
                     if (event.action == Action.LEFT_CLICK_AIR)
                         getNormalWandOrNull(player, item)
                     else getSpecialtyWandOrNull(player, item)

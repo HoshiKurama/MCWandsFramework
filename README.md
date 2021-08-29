@@ -16,7 +16,7 @@ The only thing required from users creating custom wands is how the wand will be
 * Start server.
 * That's it! OP users are given all permissions by default. For those wishing to give permissions to non-OP users, permissions can be found HERE!!!.
 
-# Developer Instructions
+# Developer Instructions:
 Adding wands to MCWandsFramework is simple, whether it be in Java or Kotlin!
 
 ## Before You Begin:

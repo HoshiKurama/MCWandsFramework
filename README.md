@@ -14,7 +14,7 @@ The only thing required from users creating custom wands is how the wand will be
 ### Installation Instructions:
 * Drag MCWandsFramework into plugins folder.
 * Start server.
-* That's it! OP users are given all permissions by default. For those wishing to give permissions to non-OP users, permissions can be found here.
+* That's it! OP users are given all permissions by default. For those wishing to give permissions to non-OP users, permissions can be found [here](https://github.com/HoshiKurama/MCWandsFramework/wiki).
 
 # Developers:
 Adding wands to MCWandsFramework is simple, whether it be in Java or Kotlin!
@@ -29,5 +29,5 @@ Before you begin, please note that MCWandsFramework assumes the following:
 * Examples are only meant to be a guide and may not explicitly state where the code is placed in your project.
 
 
-Kotlin users should continue here.  
-Java users should continue here.
+Kotlin users should continue [here](https://github.com/HoshiKurama/MCWandsFramework/wiki/Kotlin-Developer-Instructions).  
+Java users should continue [here](https://github.com/HoshiKurama/MCWandsFramework/wiki/Java-Developer-Instructions).
